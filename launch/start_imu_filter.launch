@@ -1,0 +1,7 @@
+<launch>
+  <node name="imu_filter" pkg="imu_filter_madgwick" type="imu_filter_node" output="screen">
+    <param name="use_mag" value="true" />
+    <param name="use_magnetic_field_msg" value="true" />
+    <param name="publish_tf" value="true" />
+  </node>
+</launch>

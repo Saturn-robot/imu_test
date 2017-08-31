@@ -5,10 +5,10 @@ from sensor_msgs.msg import Imu, MagneticField
 from geometry_msgs.msg import *
 from math import radians
 
-class Gyro:
+class ImuPublisher:
     def __init__(self, frame_id = 'base_link'):
         self.frame_id = frame_id
-        rospy.init_node('gyro_publisher', log_level=rospy.INFO)
+        rospy.init_node('imu_publisher', log_level=rospy.INFO)
         # Create imu message and magnetic message
         self.imu_msg = Imu()
         self.mag_msg = MagneticField()
@@ -50,15 +50,15 @@ class Gyro:
         while not rospy.is_shutdown():
             # Publish two messages
             self.imu_msg.header.stamp = rospy.Time.now()
-            self.imu_msg.header.stamp = rospy.Time.now()
+            self.mag_msg.header.stamp = rospy.Time.now()
             self.imu_pub.publish(self.imu_msg)
             self.mag_pub.publish(self.mag_msg)
             rate.sleep()
 
 if __name__ == "__main__":
     try:
-        gyro_pub = Gyro()
-        gyro_pub.publish_imu()
+        imu_pub = ImuPublisher()
+        imu_pub.publish_imu()
     except rospy.ROSInterruptException as e:
         rospy.loginfo(e)
-        rospy.loginfo("Gyro publisher is being closed...")
+        rospy.loginfo("Imu publisher is being closed...")
